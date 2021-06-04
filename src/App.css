@@ -1,0 +1,66 @@
+.App {
+  
+}
+
+.db-content {
+  background-color: #173966;
+  height: 90vh;
+}
+
+.db-header-container {
+  background-color: #13487a;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.db-header-title {
+  font-size: 36px;
+  font-weight: 600;
+  color: #03efe6;
+}
+
+.project-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.db-row {
+  height: 22vh;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.visual-card-container {
+  box-shadow: 0 0 4px 2px rgba(28,84,148,255);
+  width: 100%;
+  margin: 0 20px;
+  padding: 10px;
+  color: white;
+  background-color: rgba(26,62,140,0.3);
+}
+
+.project-card-item {
+  flex: 1;
+  color: white;
+  border: 1px solid #225b93;
+  background: linear-gradient(to right,#0e3e8e, #2158b0);
+  opacity: 0.9;
+  margin: 0 15px;
+  max-width: 10vw;
+  padding: 0 0 10px;
+  box-shadow: 0 0 6px 5px rgba(28,84,148,255);
+}
+
+.project-card-item > div {
+  text-align: center;
+}
+
+.project-card-item-title {
+  font-size: 22px;
+  padding: 5px;
+}
