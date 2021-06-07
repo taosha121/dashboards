@@ -1,90 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { projectSelect, fetchProjects, selectAllProjects } from '../features/projectsSlice'
 
-class ProjectCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {projectList: [
-            {
-                group: "华为群",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "中国区企业",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "云核心网",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "IT",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "云应用与服务",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "2021实验室",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "消费者",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "流程IT",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "海思",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "无线",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "技术服务",
-                projectNum: 30,
-                staffNum: 1782
-            },
-            {
-                group: "荣耀",
-                projectNum: 30,
-                staffNum: 1782
-            }
-        ]};
-    }
+export const ProjectCard = () => {
+    // const projectList = useSelector(state => state.projects.projectList)
+    // console.log(projectList)
+    const dispatch = useDispatch()
+    const projects = useSelector(selectAllProjects)
 
-    render() {
-        const list = this.state.projectList;
-        const listItem = list.map((item) => {
+    const projectStatus = useSelector(state => state.projects.status)
+
+    useEffect(() => {
+        console.log("abc")
+        if(projectStatus === 'idle') {
+            dispatch(fetchProjects())
+        }
+    }, [projectStatus, dispatch])
+
+
+    let listItem
+
+    if (projectStatus === 'loading') {
+        listItem = <div className="loader">Loading...</div>
+    } else if (projectStatus === 'succeeded') {
+        listItem = projects.map((item) => {
             return (
-                <ProjectCardItem item={item} />
+                <ProjectCardItem item={item} key={item.projectId}/>
             )
         })
-        return (<div className="project-card-container">{listItem}</div>)
-            
     }
+    
+    return (<div className="project-card-container">{listItem}</div>)
 }
 
 export default ProjectCard;
 
 function ProjectCardItem(props) {
+    const dispatch = useDispatch()
+    const handleClick = (e) => {
+        console.log("====" + e.target.getAttribute("projectid"))
+        dispatch(projectSelect({projectId: 1}))
+    }
     return (
-        <div className="project-card-item" key={props.item.group}>
-            <div className="project-card-item-title">{props.item.group}</div>
+        <div className="project-card-item">
+            <div className="project-card-item-title"  projectid={props.item.projectId} onClick={handleClick}>{props.item.group}</div>
             <div>项目：{props.item.projectNum}</div>
             <div>人数：{props.item.staffNum}</div>
         </div>
