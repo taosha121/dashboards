@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { projectSelect, fetchProjects, selectAllProjects } from '../features/projectsSlice'
+import { fetchProjectDetails, fetchProjects, selectAllProjects } from '../features/projectsSlice'
 
 export const ProjectCard = () => {
     // const projectList = useSelector(state => state.projects.projectList)
@@ -12,7 +12,6 @@ export const ProjectCard = () => {
     const projectStatus = useSelector(state => state.projects.status)
 
     useEffect(() => {
-        console.log("abc")
         if(projectStatus === 'idle') {
             dispatch(fetchProjects())
         }
@@ -22,7 +21,7 @@ export const ProjectCard = () => {
     let listItem
 
     if (projectStatus === 'loading') {
-        listItem = <div className="loader">Loading...</div>
+        listItem = <div className="loader"><h1>Loading...</h1></div>
     } else if (projectStatus === 'succeeded') {
         listItem = projects.map((item) => {
             return (
@@ -38,9 +37,9 @@ export default ProjectCard;
 
 function ProjectCardItem(props) {
     const dispatch = useDispatch()
-    const handleClick = (e) => {
-        console.log("====" + e.target.getAttribute("projectid"))
-        dispatch(projectSelect({projectId: 1}))
+    const handleClick = (e) => {;
+        let pid = e.target.getAttribute("projectid")
+        dispatch(fetchProjectDetails(pid))
     }
     return (
         <div className="project-card-item">

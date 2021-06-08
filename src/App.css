@@ -26,6 +26,7 @@
   justify-content: center;
   align-items: center;
   height: 10vh;
+  position: relative;
 }
 
 .db-row {
@@ -37,11 +38,21 @@
 
 .visual-card-container {
   box-shadow: 0 0 4px 2px rgba(28,84,148,255);
-  width: 100%;
   margin: 0 20px;
   padding: 10px;
   color: white;
   background-color: rgba(26,62,140,0.3);
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  color: black;
 }
 
 .project-card-item {

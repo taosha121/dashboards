@@ -3,13 +3,12 @@ import React from 'react';
 class VisualCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {projectList: [
-            
-        ]};
     }
 
     render() {
-        return (<div className="visual-card-container">{this.props.title}</div>)
+        return (<div className="visual-card-container" style={{flex:(this.props.columnSpan)}}>{this.props.title}
+            <div>{this.props.children}</div>
+        </div>)
             
     }
 }
