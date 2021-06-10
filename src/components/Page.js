@@ -45,6 +45,6 @@ const Page = () => {
         ]
     };
 
-  return <ReactECharts option={option} />;
+  return <ReactECharts option={option} style={{height: '280px'}} />;
 };
 export default Page;

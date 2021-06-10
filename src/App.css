@@ -30,8 +30,8 @@
 }
 
 .db-row {
-  height: 22vh;
-  padding: 24px 0;
+  height: 24vh;
+  margin-top: 26px;
   display: flex;
   justify-content: center;
 }
@@ -55,6 +55,10 @@
   color: black;
 }
 
+.visual-card-title {
+  font-size: 22px;
+}
+
 .project-card-item {
   flex: 1;
   color: white;
@@ -74,4 +78,64 @@
 .project-card-item-title {
   font-size: 22px;
   padding: 5px;
+}
+
+.db-alertgrid-header {
+  display: flex;
+  font-weight: bold;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  border-top: 2px solid #215199;
+}
+
+.db-alertgrid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 18px;
+  padding: 20px;
+}
+
+.db-alertgrid-row {
+  display: flex;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  color: #5bcff9;
+}
+
+.db-alertgrid-row {
+  border-top: 2px solid #215199;
+}
+
+.db-alertgrid-row:last-child {
+  border-bottom: 2px solid #215199;
+}
+
+.db-alertgrid-percentage-bg {
+  flex: 9;
+  height: 70%;
+  background-color: #5580ab;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.db-alertgrid-percentage-value {
+  flex: 1;
+}
+
+.db-alertgrid-percentage-process {
+  border-radius: 2px;
+  height: 100%;
+}
+
+.db-alertgrid-percentage-good {
+  background-color: #69f592;
+}
+
+.db-alertgrid-percentage-normal {
+  background-color: #5ed5ff;
+}
+
+.db-alertgrid-percentage-bad {
+  background-color: #ff7475;
 }

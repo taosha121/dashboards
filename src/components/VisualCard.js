@@ -6,7 +6,8 @@ class VisualCard extends React.Component {
     }
 
     render() {
-        return (<div className="visual-card-container" style={{flex:(this.props.columnSpan)}}>{this.props.title}
+        return (<div className="visual-card-container" style={{flex:(this.props.columnSpan)}}>
+            <div className="visual-card-title">{this.props.title}</div>
             <div>{this.props.children}</div>
         </div>)
             
