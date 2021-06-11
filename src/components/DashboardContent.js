@@ -3,6 +3,8 @@ import ProjectCard from './ProjectCard';
 import Page from './Page';
 import ProjectIndustryDetails from './ProjectIndustryDetails';
 import ProjectLocation from './ProjectLocation';
+import ProjectStatus from './ProjectStatus';
+import ProjectMonitor from './ProjectMonitor';
 import ProjectAlert from './ProjectAlert';
 import ProjectProcess from './ProjectProcess';
 import VisualCard from './VisualCard';
@@ -34,10 +36,14 @@ class DashboardContent extends React.Component {
                         </div>
                         <div style={{flex: '3'}}>
                         <div className="db-row">
-                            <VisualCard title="项目交付点分布图" columnSpan="3" />
+                            <VisualCard title="项目交付点分布图" columnSpan="3">
+                                <ProjectStatus />
+                            </VisualCard>
                         </div>
                         <div className="db-row">
-                            <VisualCard title="关键点监控" columnSpan="2" />
+                            <VisualCard title="关键点监控" columnSpan="2">
+                                <ProjectMonitor />
+                            </VisualCard>
                             <VisualCard title="关键问题预警" columnSpan="3">
                                 <ProjectAlert />
                             </VisualCard>
