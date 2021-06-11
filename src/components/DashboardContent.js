@@ -1,8 +1,9 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
-import Page from './Page';
 import ProjectIndustryDetails from './ProjectIndustryDetails';
 import ProjectLocation from './ProjectLocation';
+import ProjectCategoryDetails from './ProjectCategoryDetails';
+import ProjectQualityDetails from './ProjectQualityDetails';
 import ProjectStatus from './ProjectStatus';
 import ProjectMonitor from './ProjectMonitor';
 import ProjectAlert from './ProjectAlert';
@@ -30,7 +31,7 @@ class DashboardContent extends React.Component {
                             </div>
                             <div className="db-row">
                             <VisualCard title="项目来源分布" columnSpan="1">
-                                <Page />
+                                <ProjectCategoryDetails />
                             </VisualCard>
                             </div>
                         </div>
@@ -50,7 +51,7 @@ class DashboardContent extends React.Component {
                         </div>
                         <div className="db-row">
                             <VisualCard title="361质量评估" columnSpan="2">
-                                <Page />
+                                <ProjectQualityDetails />
                             </VisualCard>
                             <VisualCard title="重大项目进度" columnSpan="3">
                                 <ProjectProcess />

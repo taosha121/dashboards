@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import ReactECharts from 'echarts-for-react';
 import { fetchProjectDetails, selectProject } from '../features/projectsSlice'
 
-const ProjectIndustryDetails = () => {
+const ProjectCategoryDetails = () => {
     const dispatch = useDispatch()
     const projectDetails = useSelector(selectProject)
 
@@ -53,7 +53,7 @@ const ProjectIndustryDetails = () => {
                     labelLine: {
                         show: false
                     },
-                    data: projectDetails.industryInfo
+                    data: projectDetails.categoryInfo
                 }
             ]
         }
@@ -64,4 +64,4 @@ const ProjectIndustryDetails = () => {
 
   return <div>{content}</div>;
 };
-export default ProjectIndustryDetails;
+export default ProjectCategoryDetails;
