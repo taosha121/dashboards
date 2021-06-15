@@ -48,7 +48,7 @@ function ProjectCardItem(props) {
     }
     return (
         <div className="project-card-item">
-            <div className="project-card-item-title"  projectid={props.item.projectId} onClick={handleClick}>{props.item.group}</div>
+            <div className="project-card-item-title"  projectid={props.item.projectId} onClick={handleClick}>{props.item.projectName}</div>
             <div>项目：{props.item.projectNum}</div>
             <div>人数：{props.item.staffNum}</div>
         </div>
