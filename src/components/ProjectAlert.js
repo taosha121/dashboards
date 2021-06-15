@@ -1,62 +1,42 @@
-import React from 'react';
-import china from '../map-data/json/china.json';
-import * as echarts from 'echarts';
-import ReactECharts from 'echarts-for-react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProjectAlertDetails, selectProjectAlert } from '../features/projectsSlice';
 
 const ProjectAlert = () => {
-  
-  const alerts = [
-    {
-      event: "中小逆变器委托测试项目 人员延迟到位",
-      projectGroup: "无线",
-      projectId: 1,
-      time: "2021-02-23",
-      owner: "彭本武",
-      alertLevel: 1,
-    },
-    {
-      event: "中小逆变器委托测试项目 人员延迟到位",
-      projectGroup: "无线",
-      projectId: 2,
-      time: "2021-02-23",
-      owner: "彭本武",
-      alertLevel: 1,
-    },
-    {
-      event: "中小逆变器委托测试项目 人员延迟到位",
-      projectGroup: "无线",
-      time: "2021-02-23",
-      projectId: 3,
-      owner: "彭本武",
-      alertLevel: 2,
-    },
-    {
-      event: "中小逆变器委托测试项目 人员延迟到位",
-      projectGroup: "无线",
-      time: "2021-02-23",
-      projectId: 4,
-      owner: "彭本武",
-      alertLevel: 1,
-    }
-  ]
 
-  let listItem = alerts.map((alert) => {
-      return (
-          <AlertItem item={alert} key={alert.projectId}/>
-      )
-  })
+  const dispatch = useDispatch()
+  const projectDetails = useSelector(selectProjectAlert)
+  const projectDetailsStatus = useSelector(state => state.projects.statusForProAlertRequest)
+  let currentProjectId = useSelector(state => state.projects.currentProjectId)
+  useEffect(() => {
+      if(projectDetailsStatus === 'idle') {
+          if (!currentProjectId) currentProjectId = 0
+          dispatch(fetchProjectAlertDetails(currentProjectId))
+      }
+  }, [projectDetailsStatus, dispatch])
 
-  let res = 
-    (<div className="db-alertgrid-container">
-        <div className="db-alertgrid-header">
-          <div style={{flex: '4'}}>事件</div>
-          <div style={{flex: '1'}}>业务线</div>
-          <div style={{flex: '1'}}>时间</div>
-          <div style={{flex: '1'}}>责任人</div>
-        </div>
-        {listItem}
-    </div>)
-  return res;
+  let content
+  if (projectDetailsStatus === 'loading') {
+      content = <div className="loader"><h1>Loading...</h1></div>
+  } else if (projectDetailsStatus === 'succeeded') {
+      let listItem = projectDetails.map((alert) => {
+        return (
+            <AlertItem item={alert} key={alert.projectId}/>
+        )
+    })
+
+    content = 
+      (<div className="db-alertgrid-container">
+          <div className="db-alertgrid-header">
+            <div style={{flex: '4'}}>事件</div>
+            <div style={{flex: '1'}}>业务线</div>
+            <div style={{flex: '1'}}>时间</div>
+            <div style={{flex: '1'}}>责任人</div>
+          </div>
+          {listItem}
+      </div>)
+  }
+  return <div>{content}</div>;
 };
 
 export default ProjectAlert;

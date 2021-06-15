@@ -1,65 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProjectStatusDetails, selectProjectStatus } from '../features/projectsSlice';
 import ReactECharts from 'echarts-for-react';
 
 const ProjectStatus = () => {
   
-  const statusArr = [{
-    statusName: "规划项目阶段",
-    completeRate: 0.5,
-    children: [{
-      statusName: "技术DTRB评审",
-      projectNum: 5,
-    },{
-      statusName: "应标书/合同评审",
-      projectNum: 6,
-    },{
-      statusName: "准备DRB评审",
-      projectNum: 8,
-    }]
-  },{
-    statusName: "建立项目阶段",
-    completeRate: 0.75,
-    children: [{
-      statusName: "技术DTRB评审",
-      projectNum: 3,
-    },{
-      statusName: "准备DRB评审",
-      projectNum: 2,
-    }]
-  },{
-    statusName: "实施项目阶段",
-    completeRate: 0.25,
-    children: [{
-      statusName: "技术DTRB评审",
-      projectNum: 6,
-    },{
-      statusName: "准备DRB评审",
-      projectNum: 6,
-    }]
-  },{
-    statusName: "验收项目阶段",
-    completeRate: 0.5,
-    children: [,{
-      statusName: "准备DRB评审",
-      projectNum: 2,
-    }]
-  },{
-    statusName: "关闭项目阶段",
-    completeRate: 0.75,
-    children: [{
-      statusName: "准备DRB评审",
-      projectNum: 8,
-    }]
-  }]
+  const dispatch = useDispatch()
+  const projectDetails = useSelector(selectProjectStatus)
+  const projectDetailsStatus = useSelector(state => state.projects.statusForProStatusRequest)
+  let currentProjectId = useSelector(state => state.projects.currentProjectId)
+  useEffect(() => {
+      if(projectDetailsStatus === 'idle') {
+          if (!currentProjectId) currentProjectId = 0
+          dispatch(fetchProjectStatusDetails(currentProjectId))
+      }
+  }, [projectDetailsStatus, dispatch])
 
-  let listItem = statusArr.map((statusObj) => {
+
+
+  let content
+  if (projectDetailsStatus === 'loading') {
+      content = <div className="loader"><h1>Loading...</h1></div>
+  } else if (projectDetailsStatus === 'succeeded') {
+    let listItem = projectDetails.map((statusObj) => {
       return (
           <StatusCard item={statusObj} key={statusObj.statusName}/>
           
       )
   })
 
-  let res = 
+    content = 
     (<div className="db-project-status-container flex-box">
         <div className="db-project-status-header">
           <div>任务分布</div>
@@ -68,7 +38,9 @@ const ProjectStatus = () => {
         <div className="gradient-separator" />
         {listItem}
     </div>)
-  return res;
+  }
+
+  return <div>{content}</div>;
 };
 
 export default ProjectStatus;

@@ -6,9 +6,37 @@ export const fetchProjects = createAsyncThunk('projects/fetchProjects', async ()
     return response.data
 })
 
-export const fetchProjectDetails = createAsyncThunk("projects/fetchProjectDetails", async (pid) => {
-    const response = await axios.get('http://localhost:3003/api/projects/' + pid)
+export const fetchProjectCommonDetails = createAsyncThunk("projects/fetchProjectCommonDetails", async (pid) => {
+    const response = await axios.get('http://localhost:3003/api/projectsCommon/' + pid)
     return response.data
+})
+
+
+export const fetchProjectAlertDetails = createAsyncThunk("projects/fetchProjectAlertDetails", async (pid) => {
+  const response = await axios.get('http://localhost:3003/api/projectsAlert/' + pid)
+  return response.data
+})
+
+
+export const fetchProjectProcessDetails = createAsyncThunk("projects/fetchProjectProcessDetails", async (pid) => {
+  const response = await axios.get('http://localhost:3003/api/projectsProcess/' + pid)
+  return response.data
+})
+
+
+export const fetchProjectMonitorDetails = createAsyncThunk("projects/fetchProjectMonitorDetails", async (pid) => {
+  const response = await axios.get('http://localhost:3003/api/projectsMonitor/' + pid)
+  return response.data
+})
+
+export const fetchProjectLocationDetails = createAsyncThunk("projects/fetchProjectLocationDetails", async (pid) => {
+  const response = await axios.get('http://localhost:3003/api/projectsLocation/' + pid)
+  return response.data
+})
+
+export const fetchProjectStatusDetails = createAsyncThunk("projects/fetchProjectStatusDetails", async (pid) => {
+  const response = await axios.get('http://localhost:3003/api/projectsStatus/' + pid)
+  return response.data
 })
 
 const projectsSlice = createSlice({
@@ -18,8 +46,19 @@ const projectsSlice = createSlice({
     error: null,
     projectList: [],
     currentProjectId: '',
-    currentProjectDetails: {},
-    statusForSingleProject: 'idle',
+
+    curProCommonDetail: {},
+    statusForProCommonRequest: 'idle',
+    curProAlertDetail: {},
+    statusForProAlertRequest: 'idle',
+    curProProcessDetail: {},
+    statusForProProcessRequest: 'idle',
+    curProMonitorDetail: {},
+    statusForProMonitorRequest: 'idle',
+    curProLocationDetail: {},
+    statusForProLocationRequest: 'idle',
+    curProStatusDetail: {},
+    statusForProStatusRequest: 'idle',
   },
   reducers: {
   },
@@ -35,17 +74,89 @@ const projectsSlice = createSlice({
       state.status = 'failed'
       state.error = action.payload
     },
-    [fetchProjectDetails.pending]: (state, action) => {
-        state.statusForSingleProject = 'loading'
+
+    // detail api1
+    [fetchProjectCommonDetails.pending]: (state, action) => {
+        state.statusForProCommonRequest = 'loading'
     },
-    [fetchProjectDetails.fulfilled]: (state, action) => {
-        state.statusForSingleProject = 'succeeded'
-        state.currentProjectDetails = action.payload
+    [fetchProjectCommonDetails.fulfilled]: (state, action) => {
+        state.statusForProCommonRequest = 'succeeded'
+        state.curProCommonDetail = action.payload
     },
-    [fetchProjectDetails.rejected]: (state, action) => {
-        state.statusForSingleProject = 'failed'
+    [fetchProjectCommonDetails.rejected]: (state, action) => {
+        state.statusForProCommonRequest = 'failed'
         state.error = action.payload
     },
+
+    // detail api2
+    [fetchProjectAlertDetails.pending]: (state, action) => {
+      state.statusForProAlertRequest = 'loading'
+    },
+    [fetchProjectAlertDetails.fulfilled]: (state, action) => {
+        state.statusForProAlertRequest = 'succeeded'
+        state.curProAlertDetail = action.payload
+    },
+    [fetchProjectAlertDetails.rejected]: (state, action) => {
+        state.statusForProAlertRequest = 'failed'
+        state.error = action.payload
+    },
+
+
+    // detail api3
+    [fetchProjectProcessDetails.pending]: (state, action) => {
+      state.statusForProProcessRequest = 'loading'
+    },
+    [fetchProjectProcessDetails.fulfilled]: (state, action) => {
+        state.statusForProProcessRequest = 'succeeded'
+        state.curProProcessDetail = action.payload
+    },
+    [fetchProjectProcessDetails.rejected]: (state, action) => {
+        state.statusForProProcessRequest = 'failed'
+        state.error = action.payload
+    },
+
+
+    // detail api4
+    [fetchProjectMonitorDetails.pending]: (state, action) => {
+      state.statusForProMonitorRequest = 'loading'
+    },
+    [fetchProjectMonitorDetails.fulfilled]: (state, action) => {
+        state.statusForProMonitorRequest = 'succeeded'
+        state.curProMonitorDetail = action.payload
+    },
+    [fetchProjectMonitorDetails.rejected]: (state, action) => {
+        state.statusForProMonitorRequest = 'failed'
+        state.error = action.payload
+    },
+
+
+    // detail api5
+    [fetchProjectLocationDetails.pending]: (state, action) => {
+      state.statusForProLocationRequest = 'loading'
+    },
+    [fetchProjectLocationDetails.fulfilled]: (state, action) => {
+        state.statusForProLocationRequest = 'succeeded'
+        state.curProLocationDetail = action.payload
+    },
+    [fetchProjectLocationDetails.rejected]: (state, action) => {
+        state.statusForProLocationRequest = 'failed'
+        state.error = action.payload
+    },
+
+
+    // detail api6
+    [fetchProjectStatusDetails.pending]: (state, action) => {
+      state.statusForProStatusRequest = 'loading'
+    },
+    [fetchProjectStatusDetails.fulfilled]: (state, action) => {
+        state.statusForProStatusRequest = 'succeeded'
+        state.curProStatusDetail = action.payload
+    },
+    [fetchProjectStatusDetails.rejected]: (state, action) => {
+        state.statusForProStatusRequest = 'failed'
+        state.error = action.payload
+    },
+
 
   },
 })
@@ -57,8 +168,14 @@ export default projectsSlice.reducer
 
 export const selectAllProjects = state => state.projects.projectList
 
-export const selectProject = state => state.projects.currentProjectDetails
+export const selectProjectCommon = state => state.projects.curProCommonDetail
 
-    
+export const selectProjectAlert = state => state.projects.curProAlertDetail
 
+export const selectProjectProcess = state => state.projects.curProProcessDetail
 
+export const selectProjectMonitor = state => state.projects.curProMonitorDetail
+
+export const selectProjectLocation = state => state.projects.curProLocationDetail
+
+export const selectProjectStatus = state => state.projects.curProStatusDetail

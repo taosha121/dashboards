@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import ReactECharts from 'echarts-for-react';
-import { fetchProjectDetails, selectProject } from '../features/projectsSlice'
+import { fetchProjectCommonDetails, selectProjectCommon } from '../features/projectsSlice'
 
 const ProjectIndustryDetails = () => {
     const dispatch = useDispatch()
-    const projectDetails = useSelector(selectProject)
+    const projectDetails = useSelector(selectProjectCommon)
 
-    const projectDetailsStatus = useSelector(state => state.projects.statusForSingleProject)
+    const projectDetailsStatus = useSelector(state => state.projects.statusForProCommonRequest)
     let currentProjectId = useSelector(state => state.projects.currentProjectId)
     useEffect(() => {
         if(projectDetailsStatus === 'idle') {
             if (!currentProjectId) currentProjectId = 0
-            dispatch(fetchProjectDetails(currentProjectId))
+            dispatch(fetchProjectCommonDetails(currentProjectId))
         }
     }, [projectDetailsStatus, dispatch])
 

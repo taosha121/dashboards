@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { fetchProjectDetails, fetchProjects, selectAllProjects } from '../features/projectsSlice'
+import { fetchProjectCommonDetails, fetchProjectAlertDetails, fetchProjectProcessDetails, fetchProjectMonitorDetails, fetchProjectStatusDetails, fetchProjectLocationDetails, fetchProjects, selectAllProjects } from '../features/projectsSlice'
 
 export const ProjectCard = () => {
     // const projectList = useSelector(state => state.projects.projectList)
@@ -39,7 +39,12 @@ function ProjectCardItem(props) {
     const dispatch = useDispatch()
     const handleClick = (e) => {;
         let pid = e.target.getAttribute("projectid")
-        dispatch(fetchProjectDetails(pid))
+        dispatch(fetchProjectCommonDetails(pid))
+        dispatch(fetchProjectAlertDetails(pid))
+        dispatch(fetchProjectProcessDetails(pid))
+        dispatch(fetchProjectMonitorDetails(pid))
+        dispatch(fetchProjectStatusDetails(pid))
+        dispatch(fetchProjectLocationDetails(pid))
     }
     return (
         <div className="project-card-item">
