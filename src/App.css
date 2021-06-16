@@ -51,7 +51,7 @@
 
 .db-row {
   height: 24vh;
-  margin-top: 26px;
+  margin-top: 16px;
   display: flex;
   justify-content: center;
 }
@@ -225,4 +225,25 @@
 
 .db-event-stats-row-indicator svg {
   stroke-width: 1px;
+}
+
+.project-card-item-loading {
+  padding: 16px;
+  flex: 1;
+  border: 1px solid #225b93;
+  background: linear-gradient(to right,#0e3e8e, #2158b0);
+  opacity: 0.9;
+  margin: 0 15px;
+  max-width: 10vw;
+  box-shadow: 0 0 6px 5px rgba(28,84,148,255);
+}
+
+.project-card-item-loading > span:first-child {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.project-card-item-loading span.react-loading-skeleton {
+  background-image: linear-gradient( 90deg,#eee,#c7c7c7,#eee );
+  border-radius: 2;
 }

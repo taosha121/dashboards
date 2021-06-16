@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import Skeleton from 'react-loading-skeleton';
 import { fetchProjectCommonDetails, fetchProjectAlertDetails, fetchProjectProcessDetails, fetchProjectMonitorDetails, fetchProjectStatusDetails, fetchProjectLocationDetails, fetchProjects, selectAllProjects } from '../features/projectsSlice'
 
 export const ProjectCard = () => {
-    // const projectList = useSelector(state => state.projects.projectList)
-    // console.log(projectList)
     const dispatch = useDispatch()
     const projects = useSelector(selectAllProjects)
 
@@ -19,9 +18,11 @@ export const ProjectCard = () => {
 
 
     let listItem
-
+    let tempArr = [{},{},{},{},{},{},{},{},{},{},{},{}]
     if (projectStatus === 'loading') {
-        listItem = <div className="loader"><h1>Loading...</h1></div>
+        listItem = tempArr.map((item) => {
+            return (<div className="project-card-item-loading"><Skeleton height={20} />  <Skeleton height={10} count={2}/></div>)
+        })
     } else if (projectStatus === 'succeeded') {
         listItem = projects.map((item) => {
             return (
@@ -29,8 +30,8 @@ export const ProjectCard = () => {
             )
         })
     }
-    
-    return (<div className="project-card-container">{listItem}</div>)
+
+    return (<div className={(projectStatus === 'succeeded' ? "project-card-container" : "project-card-container")}>{listItem}</div>)
 }
 
 export default ProjectCard;
