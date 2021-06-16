@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjectAlertDetails, selectProjectAlert } from '../features/projectsSlice';
+import Skeleton from 'react-loading-skeleton';
 
 const ProjectAlert = () => {
 
@@ -16,8 +17,27 @@ const ProjectAlert = () => {
   }, [projectDetailsStatus, dispatch])
 
   let content
+  let tempArr = [{},{},{},{}]
   if (projectDetailsStatus === 'loading') {
-      content = <div className="loader"><h1>Loading...</h1></div>
+    let temp = tempArr.map(() => {
+      return (
+        <div className="db-alertgrid-row">
+          <div style={{flex: '4'}}><Skeleton height={20} /></div>
+          <div style={{flex: '1'}}><Skeleton height={20} /></div>
+          <div style={{flex: '1'}}><Skeleton height={20} /></div>
+          <div style={{flex: '1'}}><Skeleton height={20} /></div>
+        </div>
+      )
+    })
+      content = <div className="db-alertgrid-container">
+          <div className="db-alertgrid-header">
+            <div style={{flex: '4'}}><Skeleton height={20} /></div>
+            <div style={{flex: '1'}}><Skeleton height={20} /></div>
+            <div style={{flex: '1'}}><Skeleton height={20} /></div>
+            <div style={{flex: '1'}}><Skeleton height={20} /></div>
+          </div>
+          {temp}
+      </div>
   } else if (projectDetailsStatus === 'succeeded') {
       let listItem = projectDetails.map((alert) => {
         return (

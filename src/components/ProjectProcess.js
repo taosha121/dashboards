@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjectProcessDetails, selectProjectProcess } from '../features/projectsSlice';
+import { FaSpinner } from 'react-icons/fa';
 
 const ProjectProcess = () => {
 
@@ -14,37 +15,10 @@ const ProjectProcess = () => {
           dispatch(fetchProjectProcessDetails(currentProjectId))
       }
   }, [projectDetailsStatus, dispatch])
-  
-  // const process = [
-  //   {
-  //     projectName: "户小逆变器委托测试项目 售前阶段跟踪",
-  //     projectId: 1,
-  //     percentage: "0.3",
-  //     owner: "彭本武",
-  //   },
-  //   {
-  //     projectName: "中核welink实施 网络安全项目",
-  //     projectId: 2,
-  //     percentage: "0.5",
-  //     owner: "丁凯",
-  //   },
-  //   {
-  //     projectName: "富平水泥厂签单追踪",
-  //     projectId: 3,
-  //     percentage: "0.8",
-  //     owner: "周涛",
-  //   },
-  //   {
-  //     projectName: "延长能源互联网二期",
-  //     projectId: 4,
-  //     percentage: "0.3",
-  //     owner: "刘瑶",
-  //   }
-  // ]
 
   let content
   if (projectDetailsStatus === 'loading') {
-      content = <div className="loader"><h1>Loading...</h1></div>
+      content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
   } else if (projectDetailsStatus === 'succeeded') {
       let listItem = projectDetails.map((p) => {
         return (

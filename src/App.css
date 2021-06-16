@@ -75,6 +75,31 @@
   color: black;
 }
 
+.loading-frame {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.spinner {
+  animation: spin infinite 5s linear;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 60px;
+}
+
+@keyframes spin {
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+}
+
 .visual-card-title {
   font-size: 22px;
 }
@@ -243,7 +268,8 @@
   padding-bottom: 10px;
 }
 
-.project-card-item-loading span.react-loading-skeleton {
+span.react-loading-skeleton {
   background-image: linear-gradient( 90deg,#eee,#c7c7c7,#eee );
-  border-radius: 2;
+  border-radius: 2px;
+  width: 90%;
 }

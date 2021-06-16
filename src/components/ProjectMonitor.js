@@ -19,7 +19,7 @@ const ProjectMonitor = () => {
 
   let content
   if (projectDetailsStatus === 'loading') {
-      content = <div className="loader"><h1>Loading...</h1></div>
+      content = <div className="db-event-container"></div>
   } else if (projectDetailsStatus === 'succeeded') {
     let listItem = projectDetails.map((p) => {
       let cv = p.currentNum - p.previousNum
