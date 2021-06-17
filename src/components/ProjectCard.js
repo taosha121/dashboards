@@ -22,19 +22,19 @@ export const ProjectCard = () => {
         return <div className="loading-frame"><FaSpinner className="spinner"/></div>
     } else if (projectStatus === 'succeeded') {
 
-        let pid = 0;
-        setInterval(() => {
-            console.log(pid);
-            dispatch(fetchProjectIndustryDetails(pid))
-            dispatch(fetchProjectCategoryDetails(pid))
-            dispatch(fetchProjectQualityDetails(pid))
-            dispatch(fetchProjectAlertDetails(pid))
-            dispatch(fetchProjectProcessDetails(pid))
-            dispatch(fetchProjectMonitorDetails(pid))
-            dispatch(fetchProjectStatusDetails(pid))
-            dispatch(fetchProjectLocationDetails(pid))
-            pid++;
-        }, 10000);
+        // let pid = 0;
+        // setInterval(() => {
+        //     console.log(pid);
+        //     dispatch(fetchProjectIndustryDetails(pid))
+        //     dispatch(fetchProjectCategoryDetails(pid))
+        //     dispatch(fetchProjectQualityDetails(pid))
+        //     dispatch(fetchProjectAlertDetails(pid))
+        //     dispatch(fetchProjectProcessDetails(pid))
+        //     dispatch(fetchProjectMonitorDetails(pid))
+        //     dispatch(fetchProjectStatusDetails(pid))
+        //     dispatch(fetchProjectLocationDetails(pid))
+        //     pid++;
+        // }, 10000);
 
         listItem = projects.map((item) => {
             return (

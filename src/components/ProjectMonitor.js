@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjectMonitorDetails, selectProjectMonitor } from '../features/projectsSlice';
-import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { FaSpinner } from 'react-icons/fa';
 
 const ProjectMonitor = () => {
@@ -28,7 +28,7 @@ const ProjectMonitor = () => {
   
     content = 
       (<div className="db-event-container">
-          {listItem}
+          {listItem}1111
       </div>)
   }
   
@@ -43,7 +43,7 @@ const EventItem = (props) => {
     <div>{props.item.name}</div>
     <div className="db-event-stats-row">
       <div>{props.item.currentNum}</div>
-      <div className="db-event-stats-row-indicator" style={{color: ((props.item.currentNum - props.item.previousNum) > 0 ? '#46b089' : '#dc2f33')}}>{(props.item.currentNum - props.item.previousNum) > 0 ? <BsArrowUp /> : <BsArrowDown />}</div>
+      <div className="db-event-stats-row-indicator" style={{color: ((props.item.currentNum - props.item.previousNum) > 0 ? '#46b089' : '#dc2f33')}}>{(props.item.currentNum - props.item.previousNum) > 0 ? <FaArrowUp /> : <FaArrowDown />}</div>
       <div>{(Math.abs(props.item.currentNum - props.item.previousNum)).toFixed(2)}</div>
     </div>
   </div>)
