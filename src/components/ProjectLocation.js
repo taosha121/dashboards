@@ -11,7 +11,8 @@ const ProjectLocation = () => {
     let tooltipIndex = 0
     echarts.registerMap('china', china);
     const dispatch = useDispatch()
-    const projectDetails = useSelector(selectProjectLocation)
+    let projectDetails = useSelector(selectProjectLocation)
+    
     const projectDetailsStatus = useSelector(state => state.projects.statusForProLocationRequest)
     let currentProjectId = useSelector(state => state.projects.currentProjectId)
     useEffect(() => {
@@ -29,73 +30,83 @@ const ProjectLocation = () => {
           }, 2000)
         }
         if(projectDetailsStatus === 'idle') {
-            if (!currentProjectId) currentProjectId = 0
+            if (!currentProjectId) currentProjectId = 1
             dispatch(fetchProjectLocationDetails(currentProjectId))
         }
     }, [projectDetailsStatus, dispatch])
 
     
-    const option = {
-        geo: {
-          map: 'china',
-          roam: false,
-          zoom: 1.2,
-          silent: true,
-          emphasis: {
-            label: {
-                show: 'none'
-            },
-          },
-          itemStyle: {
-            normal: {
-              areaColor: '#122861',
-              borderColor: '#2fbedb',
-              borderWidth: 1,
-            },
-          },
-          zlevel: 1,
-        },
-        tooltip: {
-          backgroundColor: "#2b6ba9",
-          borderColor: "#5b80ab",
-          borderWidth: "2px",
-          position: "right",
-          textStyle: {
-            color: "#0bd8de",
-            fontSize: "24px"
-          },
-          formatter: function(params) {
-            var value = params.value
-            return params.name + ': ' + value[2];
-          }  
-        },
-        series: [
-          {
-            type: 'effectScatter',
-            animation: false,
-            data: projectDetails,
-            coordinateSystem: 'geo',
-            showEffectOn: 'render',
-            rippleEffect: {
-              scale: 3,
-              brushType: 'fill',
-            },
-            itemStyle: {
-              normal: {
-                color: 'red',
-                shadowBlur: 5,
-                shadowColor: 'red',
-              },
-            },
-            zlevel: 1,
-          },
-        ],
-      };
+    
 
       let content
       if (projectDetailsStatus === 'loading') {
         content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
       } else if (projectDetailsStatus === 'succeeded') {
+
+        projectDetails = projectDetails.map((item) => {
+          return {
+            name: item.name,
+            value: [item.lon, item.lat, item.projectNum, item.staffNum]
+          }
+        });
+
+        const option = {
+          geo: {
+            map: 'china',
+            roam: false,
+            zoom: 1.2,
+            silent: true,
+            emphasis: {
+              label: {
+                  show: 'none'
+              },
+            },
+            itemStyle: {
+              normal: {
+                areaColor: '#122861',
+                borderColor: '#2fbedb',
+                borderWidth: 1,
+              },
+            },
+            zlevel: 1,
+          },
+          tooltip: {
+            backgroundColor: "#2b6ba9",
+            borderColor: "#5b80ab",
+            borderWidth: "2px",
+            position: "right",
+            textStyle: {
+              color: "#0bd8de",
+              fontSize: "24px"
+            },
+            formatter: function(params) {
+              var value = params.value
+              var htmlStr = "<div><div style='text-align:center;'>" + params.name + "</div><div>项目数量: " + value[2] + "个</div><div>项目人数: " + value[3] + "个</div><div>";
+              return htmlStr;
+            }  
+          },
+          series: [
+            {
+              type: 'effectScatter',
+              animation: false,
+              data: projectDetails,
+              coordinateSystem: 'geo',
+              showEffectOn: 'render',
+              rippleEffect: {
+                scale: 3,
+                brushType: 'fill',
+              },
+              itemStyle: {
+                normal: {
+                  color: 'red',
+                  shadowBlur: 5,
+                  shadowColor: 'red',
+                },
+              },
+              zlevel: 1,
+            },
+          ],
+        };
         content = <ReactECharts ref={(e) => { echartRef = e; }} option={option} style={{height: '280px'}}/>
       }
 

@@ -13,7 +13,7 @@ const ProjectIndustryDetails = () => {
     let currentProjectId = useSelector(state => state.projects.currentProjectId)
     useEffect(() => {
         if(projectDetailsStatus === 'idle') {
-            if (!currentProjectId) currentProjectId = 0
+            if (!currentProjectId) currentProjectId = 1
             dispatch(fetchProjectCommonDetails(currentProjectId))
         }
     }, [projectDetailsStatus, dispatch])

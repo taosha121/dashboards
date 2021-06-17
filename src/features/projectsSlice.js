@@ -7,36 +7,36 @@ export const fetchProjects = createAsyncThunk('projects/fetchProjects', async ()
 })
 
 export const fetchProjectCommonDetails = createAsyncThunk("projects/fetchProjectCommonDetails", async (pid) => {
-    const response = await axios.get('http://localhost:3003/api/projectsCommon/' + pid)
-    return response.data
+    const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/industry/' + pid)
+    return response.data.data
 })
 
 
 export const fetchProjectAlertDetails = createAsyncThunk("projects/fetchProjectAlertDetails", async (pid) => {
-  const response = await axios.get('http://localhost:3003/api/projectsAlert/' + pid)
-  return response.data
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/events/' + pid)
+  return response.data.data
 })
 
 
 export const fetchProjectProcessDetails = createAsyncThunk("projects/fetchProjectProcessDetails", async (pid) => {
-  const response = await axios.get('http://localhost:3003/api/projectsProcess/' + pid)
-  return response.data
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/process/' + pid)
+  return response.data.data
 })
 
 
 export const fetchProjectMonitorDetails = createAsyncThunk("projects/fetchProjectMonitorDetails", async (pid) => {
-  const response = await axios.get('http://localhost:3003/api/projectsMonitor/' + pid)
-  return response.data
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/monitor/' + pid)
+  return response.data.data
 })
 
 export const fetchProjectLocationDetails = createAsyncThunk("projects/fetchProjectLocationDetails", async (pid) => {
-  const response = await axios.get('http://localhost:3003/api/projectsLocation/' + pid)
-  return response.data
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/locations/' + pid)
+  return response.data.data
 })
 
 export const fetchProjectStatusDetails = createAsyncThunk("projects/fetchProjectStatusDetails", async (pid) => {
-  const response = await axios.get('http://localhost:3003/api/projectsStatus/' + pid)
-  return response.data
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/projectNode/' + pid)
+  return response.data.data
 })
 
 const projectsSlice = createSlice({

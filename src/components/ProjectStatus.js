@@ -12,7 +12,7 @@ const ProjectStatus = () => {
   let currentProjectId = useSelector(state => state.projects.currentProjectId)
   useEffect(() => {
       if(projectDetailsStatus === 'idle') {
-          if (!currentProjectId) currentProjectId = 0
+          if (!currentProjectId) currentProjectId = 1
           dispatch(fetchProjectStatusDetails(currentProjectId))
       }
   }, [projectDetailsStatus, dispatch])
@@ -26,10 +26,8 @@ const ProjectStatus = () => {
     let listItem = projectDetails.map((statusObj) => {
       return (
           <StatusCard item={statusObj} key={statusObj.statusName}/>
-          
       )
   })
-
     content = 
     (<div className="db-project-status-container flex-box">
         <div className="db-project-status-header">
