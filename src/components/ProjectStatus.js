@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjectStatusDetails, selectProjectStatus } from '../features/projectsSlice';
 import ReactECharts from 'echarts-for-react';
+import { FaSpinner } from 'react-icons/fa';
 
 const ProjectStatus = () => {
   
@@ -20,7 +21,7 @@ const ProjectStatus = () => {
 
   let content
   if (projectDetailsStatus === 'loading') {
-      content = <div className="loader"><h1>Loading...</h1></div>
+    content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
   } else if (projectDetailsStatus === 'succeeded') {
     let listItem = projectDetails.map((statusObj) => {
       return (

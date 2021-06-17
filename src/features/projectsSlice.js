@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const axios = require('axios');
 
 export const fetchProjects = createAsyncThunk('projects/fetchProjects', async () => {
-    const response = await axios.get('http://localhost:3003/api/projects')
-    return response.data
+    const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/projects')
+    return response.data.data
 })
 
 export const fetchProjectCommonDetails = createAsyncThunk("projects/fetchProjectCommonDetails", async (pid) => {

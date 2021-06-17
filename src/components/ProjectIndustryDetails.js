@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import ReactECharts from 'echarts-for-react';
 import { fetchProjectCommonDetails, selectProjectCommon } from '../features/projectsSlice'
+import { FaSpinner } from 'react-icons/fa';
 
 const ProjectIndustryDetails = () => {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const ProjectIndustryDetails = () => {
 
     let content, option
     if (projectDetailsStatus === 'loading') {
-        content = <div className="loader"><h1>Loading...</h1></div>
+        content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
     } else if (projectDetailsStatus === 'succeeded') {
         option = {
             tooltip: {

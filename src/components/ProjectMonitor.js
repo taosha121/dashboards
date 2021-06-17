@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjectMonitorDetails, selectProjectMonitor } from '../features/projectsSlice';
 import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
+import { FaSpinner } from 'react-icons/fa';
 
 const ProjectMonitor = () => {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const ProjectMonitor = () => {
 
   let content
   if (projectDetailsStatus === 'loading') {
-      content = <div className="db-event-container"></div>
+    content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
   } else if (projectDetailsStatus === 'succeeded') {
     let listItem = projectDetails.map((p) => {
       let cv = p.currentNum - p.previousNum

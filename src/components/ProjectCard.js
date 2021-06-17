@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import Skeleton from 'react-loading-skeleton';
+import { FaSpinner } from 'react-icons/fa';
 import { fetchProjectCommonDetails, fetchProjectAlertDetails, fetchProjectProcessDetails, fetchProjectMonitorDetails, fetchProjectStatusDetails, fetchProjectLocationDetails, fetchProjects, selectAllProjects } from '../features/projectsSlice'
 
 export const ProjectCard = () => {
@@ -18,11 +18,8 @@ export const ProjectCard = () => {
 
 
     let listItem
-    let tempArr = [{},{},{},{},{},{},{},{},{},{},{},{}]
     if (projectStatus === 'loading') {
-        listItem = tempArr.map((item) => {
-            return (<div className="project-card-item-loading"><Skeleton height={20} />  <Skeleton height={10} count={2}/></div>)
-        })
+        return <div className="loading-frame"><FaSpinner className="spinner"/></div>
     } else if (projectStatus === 'succeeded') {
         listItem = projects.map((item) => {
             return (
@@ -31,7 +28,7 @@ export const ProjectCard = () => {
         })
     }
 
-    return (<div className={(projectStatus === 'succeeded' ? "project-card-container" : "project-card-container")}>{listItem}</div>)
+    return (<div className="project-card-container">{listItem}</div>)
 }
 
 export default ProjectCard;
