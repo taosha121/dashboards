@@ -14,11 +14,10 @@ const ProjectLocation = () => {
     let projectDetails = useSelector(selectProjectLocation)
     
     const projectDetailsStatus = useSelector(state => state.projects.statusForProLocationRequest)
-    let currentProjectId = useSelector(state => state.projects.currentProjectId)
     useEffect(() => {
         if(echartRef) {
           setInterval(() => {
-            echartRef.getEchartsInstance().dispatchAction({
+            echartRef && echartRef.getEchartsInstance().dispatchAction({
               type: 'showTip',
               seriesIndex: 0,
               dataIndex: tooltipIndex
@@ -30,8 +29,7 @@ const ProjectLocation = () => {
           }, 2000)
         }
         if(projectDetailsStatus === 'idle') {
-            if (!currentProjectId) currentProjectId = 1
-            dispatch(fetchProjectLocationDetails(currentProjectId))
+            dispatch(fetchProjectLocationDetails(1))
         }
     }, [projectDetailsStatus, dispatch])
 

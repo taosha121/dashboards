@@ -8,11 +8,9 @@ const ProjectAlert = () => {
   const dispatch = useDispatch()
   const projectDetails = useSelector(selectProjectAlert)
   const projectDetailsStatus = useSelector(state => state.projects.statusForProAlertRequest)
-  let currentProjectId = useSelector(state => state.projects.currentProjectId)
   useEffect(() => {
       if(projectDetailsStatus === 'idle') {
-          if (!currentProjectId) currentProjectId = 1
-          dispatch(fetchProjectAlertDetails(currentProjectId))
+          dispatch(fetchProjectAlertDetails(1))
       }
   }, [projectDetailsStatus, dispatch])
 
@@ -22,7 +20,7 @@ const ProjectAlert = () => {
   } else if (projectDetailsStatus === 'succeeded') {
       let listItem = projectDetails.map((alert) => {
         return (
-            <AlertItem item={alert} key={alert.projectId}/>
+            <AlertItem item={alert} key={alert.id}/>
         )
     })
 
@@ -44,7 +42,7 @@ export default ProjectAlert;
 
 const AlertItem = (props) => {
   return (<div className="db-alertgrid-row">
-    <div style={{flex: '4', color: props.item.alertLevel == '1' ? '#cb6777' : '#bbb631'}}>{props.item.event}</div>
+    <div style={{flex: '4', color: props.item.alertLevel === '1' ? '#cb6777' : '#bbb631'}}>{props.item.event}</div>
     <div style={{flex: '1'}}>{props.item.projectGroup}</div>
     <div style={{flex: '1'}}>{props.item.time}</div>
     <div style={{flex: '1'}}>{props.item.owner}</div>

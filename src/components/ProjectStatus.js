@@ -9,11 +9,9 @@ const ProjectStatus = () => {
   const dispatch = useDispatch()
   const projectDetails = useSelector(selectProjectStatus)
   const projectDetailsStatus = useSelector(state => state.projects.statusForProStatusRequest)
-  let currentProjectId = useSelector(state => state.projects.currentProjectId)
   useEffect(() => {
       if(projectDetailsStatus === 'idle') {
-          if (!currentProjectId) currentProjectId = 1
-          dispatch(fetchProjectStatusDetails(currentProjectId))
+          dispatch(fetchProjectStatusDetails(1))
       }
   }, [projectDetailsStatus, dispatch])
 
@@ -25,7 +23,7 @@ const ProjectStatus = () => {
   } else if (projectDetailsStatus === 'succeeded') {
     let listItem = projectDetails.map((statusObj) => {
       return (
-          <StatusCard item={statusObj} key={statusObj.statusName}/>
+          <StatusCard item={statusObj} key={statusObj.id}/>
       )
   })
     content = 
@@ -48,13 +46,13 @@ const StatusCard = (props) => {
   let childArr = props.item.children;
   let childItem = childArr.map((obj) => {
     return (
-      <li>{obj.statusName}: {obj.projectNum}</li>
+      <li key={obj.id}>{obj.statusName}: {obj.projectNum}</li>
     )
   });
   let colorStr
   if(props.item.completeRate > 0.5){
     colorStr = '#5ed5ff'
-  }else if(props.item.completeRate == 0.5){
+  }else if(props.item.completeRate === 0.5){
     colorStr = '#69f592'
   }else{
     colorStr = '#ff7475'

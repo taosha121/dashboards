@@ -6,9 +6,19 @@ export const fetchProjects = createAsyncThunk('projects/fetchProjects', async ()
     return response.data.data
 })
 
-export const fetchProjectCommonDetails = createAsyncThunk("projects/fetchProjectCommonDetails", async (pid) => {
+export const fetchProjectIndustryDetails = createAsyncThunk("projects/fetchProjectIndustryDetails", async (pid) => {
     const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/industry/' + pid)
     return response.data.data
+})
+
+export const fetchProjectCategoryDetails = createAsyncThunk("projects/fetchProjectCategoryDetails", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/categoryInfo/' + pid)
+  return response.data.data
+})
+
+export const fetchProjectQualityDetails = createAsyncThunk("projects/fetchProjectQualityDetails", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/qualityInfo/' + pid)
+  return response.data.data
 })
 
 
@@ -45,10 +55,18 @@ const projectsSlice = createSlice({
     status: 'idle',
     error: null,
     projectList: [],
-    currentProjectId: '',
 
-    curProCommonDetail: {},
-    statusForProCommonRequest: 'idle',
+    curProIndustryDetail: {},
+    statusForProIndustryRequest: 'idle',
+
+    curProCategoryDetail: {},
+    statusForProCategoryRequest: 'idle',
+
+    curProQualityDetail: {},
+    statusForProQualityRequest: 'idle',
+
+
+
     curProAlertDetail: {},
     statusForProAlertRequest: 'idle',
     curProProcessDetail: {},
@@ -76,15 +94,40 @@ const projectsSlice = createSlice({
     },
 
     // detail api1
-    [fetchProjectCommonDetails.pending]: (state, action) => {
-        state.statusForProCommonRequest = 'loading'
+    [fetchProjectIndustryDetails.pending]: (state, action) => {
+        state.statusForProIndustryRequest = 'loading'
     },
-    [fetchProjectCommonDetails.fulfilled]: (state, action) => {
-        state.statusForProCommonRequest = 'succeeded'
-        state.curProCommonDetail = action.payload
+    [fetchProjectIndustryDetails.fulfilled]: (state, action) => {
+        state.statusForProIndustryRequest = 'succeeded'
+        state.curProIndustryDetail = action.payload
     },
-    [fetchProjectCommonDetails.rejected]: (state, action) => {
-        state.statusForProCommonRequest = 'failed'
+    [fetchProjectIndustryDetails.rejected]: (state, action) => {
+        state.statusForProIndustryRequest = 'failed'
+        state.error = action.payload
+    },
+
+    [fetchProjectCategoryDetails.pending]: (state, action) => {
+        state.statusForProCategoryRequest = 'loading'
+    },
+    [fetchProjectCategoryDetails.fulfilled]: (state, action) => {
+        state.statusForProCategoryRequest = 'succeeded'
+        state.curProCategoryDetail = action.payload
+    },
+    [fetchProjectCategoryDetails.rejected]: (state, action) => {
+        state.statusForProCategoryRequest = 'failed'
+        state.error = action.payload
+    },
+
+
+    [fetchProjectQualityDetails.pending]: (state, action) => {
+        state.statusForProQualityRequest = 'loading'
+    },
+    [fetchProjectQualityDetails.fulfilled]: (state, action) => {
+        state.statusForProQualityRequest = 'succeeded'
+        state.curProQualityDetail = action.payload
+    },
+    [fetchProjectQualityDetails.rejected]: (state, action) => {
+        state.statusForProQualityRequest = 'failed'
         state.error = action.payload
     },
 
@@ -164,11 +207,11 @@ const projectsSlice = createSlice({
 
 export default projectsSlice.reducer
 
-// export const { projectSelect } = projectsSlice.actions
-
 export const selectAllProjects = state => state.projects.projectList
 
-export const selectProjectCommon = state => state.projects.curProCommonDetail
+export const selectProjectIndustry = state => state.projects.curProIndustryDetail
+export const selectProjectCategory = state => state.projects.curProCategoryDetail
+export const selectProjectQuality = state => state.projects.curProQualityDetail
 
 export const selectProjectAlert = state => state.projects.curProAlertDetail
 

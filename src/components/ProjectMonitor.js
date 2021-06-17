@@ -8,11 +8,9 @@ const ProjectMonitor = () => {
   const dispatch = useDispatch()
   const projectDetails = useSelector(selectProjectMonitor)
   const projectDetailsStatus = useSelector(state => state.projects.statusForProMonitorRequest)
-  let currentProjectId = useSelector(state => state.projects.currentProjectId)
   useEffect(() => {
       if(projectDetailsStatus === 'idle') {
-          if (!currentProjectId) currentProjectId = 1
-          dispatch(fetchProjectMonitorDetails(currentProjectId))
+          dispatch(fetchProjectMonitorDetails(1))
       }
   }, [projectDetailsStatus, dispatch])
 
@@ -23,7 +21,6 @@ const ProjectMonitor = () => {
     content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
   } else if (projectDetailsStatus === 'succeeded') {
     let listItem = projectDetails.map((p) => {
-      let cv = p.currentNum - p.previousNum
         return (
             <EventItem item={p} key={p.name}/>
         )

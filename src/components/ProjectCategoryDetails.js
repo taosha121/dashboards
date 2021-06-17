@@ -2,19 +2,17 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import ReactECharts from 'echarts-for-react';
-import { fetchProjectCommonDetails, selectProjectCommon } from '../features/projectsSlice'
+import { fetchProjectCategoryDetails, selectProjectCategory } from '../features/projectsSlice'
 import { FaSpinner } from 'react-icons/fa';
 
 const ProjectCategoryDetails = () => {
     const dispatch = useDispatch()
-    const projectDetails = useSelector(selectProjectCommon)
+    const projectDetails = useSelector(selectProjectCategory)
 
-    const projectDetailsStatus = useSelector(state => state.projects.statusForProCommonRequest)
-    let currentProjectId = useSelector(state => state.projects.currentProjectId)
+    const projectDetailsStatus = useSelector(state => state.projects.statusForProCategoryRequest)
     useEffect(() => {
         if(projectDetailsStatus === 'idle') {
-            if (!currentProjectId) currentProjectId = 1
-            dispatch(fetchProjectCommonDetails(currentProjectId))
+            dispatch(fetchProjectCategoryDetails(1))
         }
     }, [projectDetailsStatus, dispatch])
 
@@ -54,7 +52,7 @@ const ProjectCategoryDetails = () => {
                     labelLine: {
                         show: false
                     },
-                    data: projectDetails.categoryInfo
+                    data: projectDetails
                 }
             ]
         }

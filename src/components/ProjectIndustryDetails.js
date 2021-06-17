@@ -2,19 +2,17 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import ReactECharts from 'echarts-for-react';
-import { fetchProjectCommonDetails, selectProjectCommon } from '../features/projectsSlice'
+import { fetchProjectIndustryDetails, selectProjectIndustry } from '../features/projectsSlice'
 import { FaSpinner } from 'react-icons/fa';
 
 const ProjectIndustryDetails = () => {
     const dispatch = useDispatch()
-    const projectDetails = useSelector(selectProjectCommon)
+    const projectDetails = useSelector(selectProjectIndustry)
 
-    const projectDetailsStatus = useSelector(state => state.projects.statusForProCommonRequest)
-    let currentProjectId = useSelector(state => state.projects.currentProjectId)
+    const projectDetailsStatus = useSelector(state => state.projects.statusForProIndustryRequest)
     useEffect(() => {
         if(projectDetailsStatus === 'idle') {
-            if (!currentProjectId) currentProjectId = 1
-            dispatch(fetchProjectCommonDetails(currentProjectId))
+            dispatch(fetchProjectIndustryDetails(1))
         }
     }, [projectDetailsStatus, dispatch])
 
@@ -54,7 +52,7 @@ const ProjectIndustryDetails = () => {
                     labelLine: {
                         show: false
                     },
-                    data: projectDetails.industryInfo
+                    data: projectDetails
                 }
             ]
         }

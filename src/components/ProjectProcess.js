@@ -8,11 +8,9 @@ const ProjectProcess = () => {
   const dispatch = useDispatch()
   const projectDetails = useSelector(selectProjectProcess)
   const projectDetailsStatus = useSelector(state => state.projects.statusForProProcessRequest)
-  let currentProjectId = useSelector(state => state.projects.currentProjectId)
   useEffect(() => {
       if(projectDetailsStatus === 'idle') {
-          if (!currentProjectId) currentProjectId = 1
-          dispatch(fetchProjectProcessDetails(currentProjectId))
+          dispatch(fetchProjectProcessDetails(1))
       }
   }, [projectDetailsStatus, dispatch])
 
@@ -22,7 +20,7 @@ const ProjectProcess = () => {
   } else if (projectDetailsStatus === 'succeeded') {
       let listItem = projectDetails.map((p) => {
         return (
-            <ProcessItem item={p} key={p.projectId}/>
+            <ProcessItem item={p} key={p.id}/>
         )
     })
     content = (<div className="db-alertgrid-container">
@@ -46,7 +44,7 @@ const ProcessItem = (props) => {
   let perV = Number(percentageValue * 100) + "%";
   if( percentageValue > 0.5){
     colorClassName = 'good';
-  }else if(percentageValue == 0.5){
+  }else if(percentageValue === 0.5){
     colorClassName = "normal";
   }else{
     colorClassName = "bad";
