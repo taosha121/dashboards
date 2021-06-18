@@ -50,15 +50,16 @@ const StatusCard = (props) => {
     )
   });
   let colorStr
-  if(props.item.completeRate > 0.5){
+  let rate = Number(props.item.completeRate)
+  if( rate > 0.5){
     colorStr = '#5ed5ff'
-  }else if(props.item.completeRate === 0.5){
+  }else if(rate  === 0.5){
     colorStr = '#69f592'
   }else{
     colorStr = '#ff7475'
   }
 
-  let labelStr = props.item.completeRate * 100 + "%"
+  let labelStr = rate * 100 + "%"
   let option = {
       tooltip: {
           trigger: 'item'

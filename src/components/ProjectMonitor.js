@@ -25,10 +25,9 @@ const ProjectMonitor = () => {
             <EventItem item={p} key={p.name}/>
         )
     })
-  
     content = 
       (<div className="db-event-container">
-          {listItem}1111
+          {listItem}
       </div>)
   }
   
@@ -38,13 +37,27 @@ const ProjectMonitor = () => {
 export default ProjectMonitor;
 
 const EventItem = (props) => {
-
+  let cv, cvStr, currentStr
+  if(Number(props.item.currentNum) < 1){
+    // this should be a percentage value
+    cv = Number(props.item.currentNum - props.item.previousNum).toPrecision(2)
+    cvStr = Math.abs(cv * 100).toPrecision(2) + "%"
+    currentStr = ((props.item.currentNum) * 100).toPrecision(2) + "%"
+  }else{
+    // this should be an int number value
+    cv = props.item.currentNum - props.item.previousNum
+    cvStr = Math.abs(cv)
+    currentStr = props.item.currentNum
+  }
+  let isGoodIn = props.item.isGoodIndicator === "true" ? true : false
+  // good indicator increase and bad indicator decrease use green arrow
+  let arrowColor = ((cv > 0 && isGoodIn) || (cv < 0 && !isGoodIn)) ? '#46b089' : '#dc2f33'
   return (<div className="db-event-item">
     <div>{props.item.name}</div>
     <div className="db-event-stats-row">
-      <div>{props.item.currentNum}</div>
-      <div className="db-event-stats-row-indicator" style={{color: ((props.item.currentNum - props.item.previousNum) > 0 ? '#46b089' : '#dc2f33')}}>{(props.item.currentNum - props.item.previousNum) > 0 ? <FaArrowUp /> : <FaArrowDown />}</div>
-      <div>{(Math.abs(props.item.currentNum - props.item.previousNum)).toFixed(2)}</div>
+      <div>{currentStr}</div>
+      <div className="db-event-stats-row-indicator" style={{color: (arrowColor)}}>{cv > 0 ? <FaArrowUp /> : <FaArrowDown />}</div>
+      <div>{cvStr}</div>
     </div>
   </div>)
 }

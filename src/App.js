@@ -27,13 +27,13 @@ function App() {
     </nav> */}
 
     <Switch>
-      <Route path="/dashboard1">
+      <Route path="/db1">
         <div className="App">
           <DashboardHeader title="项目集成管理智慧运营中心" />
           <DashboardContent />
         </div>
       </Route>
-      <Route path="/dashboard2">
+      <Route path="/db2">
         <h1>22222222222222222222222222222222222222222</h1>
       </Route>
     </Switch>
