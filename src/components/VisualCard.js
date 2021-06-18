@@ -1,14 +1,10 @@
 import React from 'react';
 
-class VisualCard extends React.Component {
-
-    render() {
-        return (<div className="visual-card-container" style={{flex:(this.props.columnSpan)}}>
-            <div className="visual-card-title">{this.props.title}</div>
-            <div>{this.props.children}</div>
+const VisualCard = (props) => {
+    return (<div className="visual-card-container" style={{flex:(props.columnSpan)}}>
+            <div className="visual-card-title">{props.title}</div>
+            <div>{props.children}</div>
         </div>)
-            
-    }
 }
 
 export default VisualCard;

@@ -1,6 +1,7 @@
 import './App.css';
 import DashboardHeader from './components/DashboardHeader';
 import DashboardContent from './components/DashboardContent';
+import DashboardContentNew from './componentsNew/DashboardContentNew';
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,7 +35,8 @@ function App() {
         </div>
       </Route>
       <Route path="/db2">
-        <h1>22222222222222222222222222222222222222222</h1>
+          <DashboardHeader title="研发管理智慧中心" />
+          <DashboardContentNew />
       </Route>
     </Switch>
   </div>
