@@ -186,9 +186,29 @@ to {
   justify-content: space-between;
 }
 
+.dbnew-status-list {
+  justify-content: flex-start;
+  width: 80%;
+}
+
 .db-project-status-list li {
   color: #5bcff9;
   padding-top: 5px;
+}
+
+.dbnew-status-list ul {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.dbnew-status-list ul li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dbnew-status-list ul li .align-left {
+  color: #03f4ec;
 }
 
 .db-project-status-header {
@@ -200,10 +220,17 @@ to {
 }
 
 .gradient-separator {
-  background: linear-gradient(#204ea7, #72b8de, #204ea7);
+  background: linear-gradient(90deg, #204ea7, #72b8de, #204ea7);
   width: 3px;
   border-radius: 100%;
   height: 16vh;
+}
+
+.gradient-separator-horizontal {
+  background: linear-gradient(#204ea7, #72b8de, #204ea7);
+  width: 5vw;
+  border-radius: 100%;
+  height: 3px;
 }
 
 .db-event-container {
@@ -329,4 +356,31 @@ span.react-loading-skeleton {
   background-color: #1d4c9e;
   border-radius: 5px;
   margin: 0 10px;
+}
+
+.dbnew-taskinfo-title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.dbnew-taskinfo-title-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;;
+  width: 30%;
+}
+
+.dbnew-basicinfo-table-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.dbnew-taskinfo-table-container {
+  padding: 12px 72px;
+}
+
+.dbnew-basicinfo-item-text {
+  padding-top: 8px;
+  color: #47aadc;
 }
