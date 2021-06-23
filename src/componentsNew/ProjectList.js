@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProjects, selectAllProjects } from '../features/pipelinesSlice';
+import { FaSpinner } from 'react-icons/fa';
 
 const ProjectList = () => {
     const mockdata = [
@@ -94,14 +97,32 @@ const ProjectList = () => {
         }
     ];
 
-    let listItem = mockdata.map((item) => {
-        return <li key={item.id}>{item.projectName}</li>
-    });
 
-    return (
-        <><ul className="dbnew-project-list-container">{listItem}</ul>
-        <div className="gradient-separator-new" /></>
-    )
+
+    const dispatch = useDispatch()
+    const projectDetails = useSelector(selectAllProjects)
+    const projectDetailsStatus = useSelector(state => state.pipelines.status)
+    useEffect(() => {
+        if(projectDetailsStatus === 'idle') {
+            dispatch(fetchProjects(1))
+        }
+    }, [projectDetailsStatus, dispatch])
+
+    let content
+    if (projectDetailsStatus === 'loading') {
+        content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
+    } else if (projectDetailsStatus === 'succeeded') {
+        let listItem = projectDetails.map((item) => {
+            return <li key={item.id}>{item.projectName}</li>
+        });
+        content = (
+            <div className="flex-box"><ul className="dbnew-project-list-container">{listItem}</ul>
+            <div className="gradient-separator-new" /></div>
+        )
+    
+    }
+
+    return <div>{content}</div>
 }
 
 export default ProjectList;

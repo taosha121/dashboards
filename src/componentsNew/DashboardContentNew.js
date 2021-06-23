@@ -19,7 +19,7 @@ class DashboardContentNew extends React.Component {
                    <VisualCardNew>
                     
                     <div style={{display: 'flex'}}>
-                        <div style={{flex: '2', display: 'flex'}}>
+                        <div style={{flex: '2'}}>
                             <ProjectList />
                         </div>
                         <div style={{flex: '7'}}>

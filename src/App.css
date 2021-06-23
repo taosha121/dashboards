@@ -295,6 +295,7 @@ span.react-loading-skeleton {
   padding-right: 40px;
   font-size: 20px;
   max-width: 450px;
+  width: 80%;
 }
 
 .dbnew-project-list-container li {

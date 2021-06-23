@@ -6,7 +6,7 @@ export const fetchProjects = createAsyncThunk('pipeline/fetchProjects', async ()
     return response.data.data
 })
 
-export const fetchProjectBasicInfo = createAsyncThunk("projects/fetchProjectBasicInfo", async (pid) => {
+export const fetchProjectStatus = createAsyncThunk("projects/fetchProjectStatus", async (pid) => {
     const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/dashboard/' + pid)
     return response.data.data
 })
@@ -56,8 +56,8 @@ const pipelinesSlice = createSlice({
     error: null,
     projectList: [],
 
-    curProBasicInfo: {},
-    statusForProBasicInfoRequest: 'idle',
+    curProStatus: {},
+    statusForProStatusRequest: 'idle',
 
     curProSystemInfo: {},
     statusForProSystemInfoRequest: 'idle',
@@ -97,15 +97,15 @@ const pipelinesSlice = createSlice({
     },
 
 
-    [fetchProjectBasicInfo.pending]: (state, action) => {
-      state.statusForProBasicInfoRequest = 'loading'
+    [fetchProjectStatus.pending]: (state, action) => {
+      state.statusForProStatusRequest = 'loading'
     },
-    [fetchProjectBasicInfo.fulfilled]: (state, action) => {
-      state.statusForProBasicInfoRequest = 'succeeded'
-      state.curProBasicInfo = action.payload
+    [fetchProjectStatus.fulfilled]: (state, action) => {
+      state.statusForProStatusRequest = 'succeeded'
+      state.curProStatus = action.payload
     },
-    [fetchProjectBasicInfo.rejected]: (state, action) => {
-      state.statusForProBasicInfoRequest = 'failed'
+    [fetchProjectStatus.rejected]: (state, action) => {
+      state.statusForProStatusRequest = 'failed'
       state.error = action.payload
     },
 
@@ -159,7 +159,7 @@ export default pipelinesSlice.reducer
 
 export const selectAllProjects = state => state.pipelines.projectList
 
-export const selectProjectBasicInfo = state => state.pipelines.curProBasicInfo
+export const selectProjectStatus = state => state.pipelines.curProStatus
 export const selectProjectSystemInfo = state => state.pipelines.curProSystemInfo
 export const selectProjectTaskInfo = state => state.pipelines.curProTaskInfo
 export const selectProjectAlertInfo = state => state.pipelines.curProAlertInfo

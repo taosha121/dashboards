@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProjectStatusDetails, selectProjectStatus } from '../features/projectsSlice';
+import { fetchProjectStatus, selectProjectStatus } from '../features/pipelinesSlice';
 import { FaSpinner } from 'react-icons/fa';
 
 const ProjectStatusNew = () => {
   
-  // const dispatch = useDispatch()
-  // const projectDetails = useSelector(selectProjectStatus)
-  // const projectDetailsStatus = useSelector(state => state.projects.statusForProStatusRequest)
-  // useEffect(() => {
-  //     if(projectDetailsStatus === 'idle') {
-  //         dispatch(fetchProjectStatusDetails(1))
-  //     }
-  // }, [projectDetailsStatus, dispatch])
+  const dispatch = useDispatch()
+  const projectDetails = useSelector(selectProjectStatus)
+  const projectDetailsStatus = useSelector(state => state.pipelines.statusForProStatusRequest)
+  useEffect(() => {
+      if(projectDetailsStatus === 'idle') {
+          dispatch(fetchProjectStatus(1))
+      }
+  }, [projectDetailsStatus, dispatch])
 
-  let projectDetails = [{
+  let projectDetails111 = [{
     statusName: "To Do",
     children: [{
       statusName: "流水线列表字段缺失问题",
@@ -68,26 +68,22 @@ const ProjectStatusNew = () => {
   }]
 
   let content
-  // if (projectDetailsStatus === 'loading') {
-  //   content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
-  // } else if (projectDetailsStatus === 'succeeded') {
-  //   let listItem = projectDetails.map((statusObj) => {
-  //     return (
-  //         <StatusCard item={statusObj} key={statusObj.id}/>
-  //     )
-  // })
-
-  let listItem = projectDetails.map((statusObj) => {
-    return (
-        <StatusCard item={statusObj} key={statusObj.id}/>
-    )
-    
+  if (projectDetailsStatus === 'loading') {
+    content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
+  } else if (projectDetailsStatus === 'succeeded') {
+    debugger
+    let listItem = projectDetails.map((statusObj) => {
+      return (
+          <StatusCard item={statusObj} key={statusObj.id}/>
+      )
   })
+
+  
   content = 
     (<div className="db-project-status-container flex-box">
         {listItem}
     </div>)
-
+  }
   return <div>{content}</div>;
 };
 
