@@ -10,6 +10,7 @@ import BuildInfo from './BuildInfo';
 import CommitInfo from './CommitInfo';
 import BurndownInfo from './BurndownInfo';
 import BugInfo from './BugInfo';
+import HealthInfo from './HealthInfo';
 
 class DashboardContentNew extends React.Component {
     render() {
@@ -45,7 +46,7 @@ class DashboardContentNew extends React.Component {
                                 <BuildInfo />
                             </VisualCard>
                             <VisualCard title="代码健康度" columnSpan="1">
-                                
+                                <HealthInfo />
                             </VisualCard>
                         </div>
                         <div className="db-row" style={{height: "20vh"}}>

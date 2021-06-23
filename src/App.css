@@ -384,3 +384,35 @@ span.react-loading-skeleton {
   padding-top: 8px;
   color: #47aadc;
 }
+
+.dbnew-health-left-pane,
+.dbnew-health-right-pane {
+  flex: 1;
+}
+
+.dbnew-health-left-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dbnew-health-container {
+  padding-top: 32px;
+  justify-content: space-between;
+}
+
+.dbnew-health-left-title {
+  font-size: 18px;
+  position: relative;
+  top: -70px;
+}
+
+.dbnew-health-right-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dbnew-health-right-pane div {
+  padding-bottom: 20px;
+}

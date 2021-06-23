@@ -54,7 +54,7 @@ const BugInfo = () => {
                         show: true,
                         color: 'white',
                         formatter: (params) => {
-                            return '<div>' + params.name + '<br>' + (Number(params.value)*100 + '%') + '</div>'
+                            return params.name + '\n' + (Number(params.value)*100 + '%')
                         }
                     },
                     labelLine: {
