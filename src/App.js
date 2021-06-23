@@ -29,10 +29,8 @@ function App() {
 
     <Switch>
       <Route path="/db1">
-        <div className="App">
           <DashboardHeader title="项目集成管理智慧运营中心" />
           <DashboardContent />
-        </div>
       </Route>
       <Route path="/db2">
           <DashboardHeader title="研发管理智慧中心" />

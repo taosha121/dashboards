@@ -11,6 +11,7 @@ import CommitInfo from './CommitInfo';
 import BurndownInfo from './BurndownInfo';
 import BugInfo from './BugInfo';
 import HealthInfo from './HealthInfo';
+import AlertInfo from './AlertInfo';
 
 class DashboardContentNew extends React.Component {
     render() {
@@ -30,7 +31,7 @@ class DashboardContentNew extends React.Component {
                                 <SystemInfo />
                             </VisualCard>
                             <VisualCard title="项目预警事件" columnSpan="1">
-                                
+                                <AlertInfo />
                             </VisualCard>
                         </div>
                         <div className="db-row" style={{height: "20vh"}}>

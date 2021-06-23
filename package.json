@@ -1,6 +1,5 @@
 {
   "name": "dashboards",
-  "proxy": "http://192.168.77.107:9999",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

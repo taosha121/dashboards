@@ -293,7 +293,7 @@ span.react-loading-skeleton {
 
 .dbnew-project-list-container {
   padding-right: 40px;
-  font-size: 22px;
+  font-size: 20px;
   max-width: 450px;
 }
 
@@ -415,4 +415,35 @@ span.react-loading-skeleton {
 
 .dbnew-health-right-pane div {
   padding-bottom: 20px;
+}
+
+.dbnew-alertinfo-container {
+  padding: 48px 16px 16px;
+}
+
+.dbnew-alertinfo-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.dbnew-alertinfo-name {
+  display: flex;
+}
+
+.dbnew-alertinfo-text {
+  padding-left: 16px;
+  color: #47aadc;
+}
+
+.dbnew-alertinfo-icon {
+  color: #ff5b5a;
+}
+
+.dbnew-alertinfo-details {
+  color: #ff5b5a;
+}
+
+.dbnew-alertinfo-legend {
+  float: right;
 }
