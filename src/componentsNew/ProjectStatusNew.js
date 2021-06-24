@@ -14,67 +14,30 @@ const ProjectStatusNew = () => {
       }
   }, [projectDetailsStatus, dispatch])
 
-  let projectDetails111 = [{
-    statusName: "To Do",
-    children: [{
-      statusName: "流水线列表字段缺失问题",
-      owner: "赵庆鹏",
-    },{
-      statusName: "用户故事指标",
-      owner: "赵庆鹏",
-    }]
-  },{
-    statusName: "处理中",
-    children: [{
-      statusName: "代码编辑，管理，删除代码库",
-      owner: "赵庆鹏",
-    },{
-      statusName: "流水线列表字段缺失问题",
-      owner: "赵庆鹏",
-    },{
-      statusName: "性能优化的调研",
-      owner: "赵庆鹏",
-    },{
-      statusName: "流水线运行状态",
-      owner: "赵庆鹏",
-    },{
-      statusName: "流水线运行日志",
-      owner: "赵庆鹏",
-    }]
-  },{
-    statusName: "评审",
-    children: [{
-      statusName: "代码管理列表，创建代码库",
-      owner: "赵庆鹏",
-    },{
-      statusName: "查看流水线",
-      owner: "赵庆鹏",
-    }]
-  },{
-    statusName: "阻塞",
-    children: [{
-      statusName: "用户鉴权管理",
-      owner: "赵庆鹏",
-    }]
-  },{
-    statusName: "测试",
-    children: [{
-      statusName: "文件上传失败",
-      owner: "赵庆鹏",
-    },{
-      statusName: "列表-添加缺陷",
-      owner: "赵庆鹏",
-    }]
-  }]
+  const titleMap = {
+    todo: "To Do",
+    doing: "处理中",
+    review: "评审",
+    block: "阻塞",
+    test: "测试"
+  }
 
   let content
   if (projectDetailsStatus === 'loading') {
     content = <div className="loading-frame"><FaSpinner className="spinner"/></div>
   } else if (projectDetailsStatus === 'succeeded') {
-    debugger
-    let listItem = projectDetails.map((statusObj) => {
+    let proArr = []
+    
+    for(let attr in projectDetails[0]){
+      let obj = {
+        statusTitle: titleMap[attr],
+        statusEvents: projectDetails[0][attr]
+      }
+      proArr.push(obj)
+    }
+    let listItem = proArr.map((obj) => {
       return (
-          <StatusCard item={statusObj} key={statusObj.id}/>
+          <StatusCard item={obj.statusEvents} title={obj.statusTitle}/>
       )
   })
 
@@ -90,17 +53,16 @@ const ProjectStatusNew = () => {
 export default ProjectStatusNew;
 
 const StatusCard = (props) => {
-  let childArr = props.item.children;
-  let childItem = childArr.map((obj) => {
+  let childItem = props.item.map((obj) => {
     return (
-      <li key={obj.id}><span className="align-left">{obj.statusName}</span><span className="align-right">{obj.owner}</span></li>
+      <li key={obj.id}><span className="align-left">{obj.title}</span><span className="align-right">{obj.staffName}</span></li>
     )
   });
   
   return (
   <div className="db-project-status-card">
   <div className="db-project-status-list dbnew-status-list">
-    <div>{props.item.statusName}</div>
+    <div style={{fontSize: '22px'}}>{props.title}</div>
     <ul>{childItem}</ul>
     
   </div>
