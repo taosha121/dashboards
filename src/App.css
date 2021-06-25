@@ -303,6 +303,13 @@ span.react-loading-skeleton {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  position: relative;
+}
+
+.float-icon {
+  position: absolute;
+  right: 0;
+  top: 15px;
 }
 
 .gradient-separator-new {

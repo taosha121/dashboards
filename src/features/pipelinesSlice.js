@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 const axios = require('axios');
 
 export const fetchProjects = createAsyncThunk('pipeline/fetchProjects', async () => {
@@ -28,6 +28,8 @@ export const fetchProjectAlertInfo = createAsyncThunk("projects/fetchProjectAler
 })
 
 
+
+
 // export const fetchProjectProcessDetails = createAsyncThunk("projects/fetchProjectProcessDetails", async (pid) => {
 //   const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/process/' + pid)
 //   return response.data.data
@@ -55,6 +57,7 @@ const pipelinesSlice = createSlice({
     status: 'idle',
     error: null,
     projectList: [],
+    currentProId: 1,
 
     curProStatus: {},
     statusForProStatusRequest: 'idle',
@@ -82,8 +85,15 @@ const pipelinesSlice = createSlice({
     // statusForProStatusRequest: 'idle',
   },
   reducers: {
+    updateProId: (state, action) => {
+      state.currentProId = action.payload
+    },
+    
   },
   extraReducers: {
+    
+
+
     [fetchProjects.pending]: (state, action) => {
       state.status = 'loading'
     },
@@ -148,14 +158,11 @@ const pipelinesSlice = createSlice({
       state.error = action.payload
     },
 
-    
-
-
   },
 })
 
-
 export default pipelinesSlice.reducer
+export const { updateProId } = pipelinesSlice.actions
 
 export const selectAllProjects = state => state.pipelines.projectList
 
@@ -163,3 +170,5 @@ export const selectProjectStatus = state => state.pipelines.curProStatus
 export const selectProjectSystemInfo = state => state.pipelines.curProSystemInfo
 export const selectProjectTaskInfo = state => state.pipelines.curProTaskInfo
 export const selectProjectAlertInfo = state => state.pipelines.curProAlertInfo
+
+export const selectCurProId = state => state.pipelines.currentProId
