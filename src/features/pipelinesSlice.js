@@ -42,6 +42,20 @@ export const fetchProjectBurndownInfo = createAsyncThunk("projects/fetchProjectB
   return response.data.data
 })
 
+export const fetchProjectCommitInfo = createAsyncThunk("projects/fetchProjectCommitInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/codeCommitInfo/' + pid)
+  return response.data.data
+})
+
+export const fetchProjectBugInfo = createAsyncThunk("projects/fetchProjectBugInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/defects/' + pid)
+  return response.data.data
+})
+
+export const fetchProjectBasicInfo = createAsyncThunk("projects/fetchProjectBasicInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/baseInfo/' + pid)
+  return response.data.data
+})
 
 
 const pipelinesSlice = createSlice({
@@ -72,6 +86,15 @@ const pipelinesSlice = createSlice({
 
     curProBurndownInfo: {},
     statusForProBurndownInfoRequest: 'idle',
+
+    curProCommitInfo: {},
+    statusForProCommitInfoRequest: 'idle',
+
+    curProBugInfo: {},
+    statusForProBugInfoRequest: 'idle',
+
+    curProBasicInfo: {},
+    statusForProBasicInfoRequest: 'idle',
 
 
 
@@ -189,6 +212,45 @@ const pipelinesSlice = createSlice({
     },
 
 
+
+
+    [fetchProjectCommitInfo.pending]: (state, action) => {
+      state.statusForProCommitInfoRequest = 'loading'
+    },
+    [fetchProjectCommitInfo.fulfilled]: (state, action) => {
+      state.statusForProCommitInfoRequest = 'succeeded'
+      state.curProCommitInfo = action.payload
+    },
+    [fetchProjectCommitInfo.rejected]: (state, action) => {
+      state.statusForProCommitInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+    [fetchProjectBugInfo.pending]: (state, action) => {
+      state.statusForProBugInfoRequest = 'loading'
+    },
+    [fetchProjectBugInfo.fulfilled]: (state, action) => {
+      state.statusForProBugInfoRequest = 'succeeded'
+      state.curProBugInfo = action.payload
+    },
+    [fetchProjectBugInfo.rejected]: (state, action) => {
+      state.statusForProBugInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+    [fetchProjectBasicInfo.pending]: (state, action) => {
+      state.statusForProBasicInfoRequest = 'loading'
+    },
+    [fetchProjectBasicInfo.fulfilled]: (state, action) => {
+      state.statusForProBasicInfoRequest = 'succeeded'
+      state.curProBasicInfo = action.payload
+    },
+    [fetchProjectBasicInfo.rejected]: (state, action) => {
+      state.statusForProBasicInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+
   },
 })
 
@@ -204,5 +266,8 @@ export const selectProjectAlertInfo = state => state.pipelines.curProAlertInfo
 export const selectProjectBuildInfo = state => state.pipelines.curProBuildInfo
 export const selectProjectHealthInfo = state => state.pipelines.curProHealthInfo
 export const selectProjectBurndownInfo = state => state.pipelines.curProBurndownInfo
+export const selectProjectCommitInfo = state => state.pipelines.curProCommitInfo
+export const selectProjectBugInfo = state => state.pipelines.curProBugInfo
+export const selectProjectBasicInfo = state => state.pipelines.curProBasicInfo
 
 export const selectCurProId = state => state.pipelines.currentProId
