@@ -27,29 +27,22 @@ export const fetchProjectAlertInfo = createAsyncThunk("projects/fetchProjectAler
   return response.data.data
 })
 
+export const fetchProjectBuildInfo = createAsyncThunk("projects/fetchProjectBuildInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/buildInfo/' + pid)
+  return response.data.data
+})
+
+export const fetchProjectHealthInfo = createAsyncThunk("projects/fetchProjectHealthInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/codeHealth/' + pid)
+  return response.data.data
+})
+
+export const fetchProjectBurndownInfo = createAsyncThunk("projects/fetchProjectBurndownInfo", async (pid) => {
+  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/burnout/' + pid)
+  return response.data.data
+})
 
 
-
-// export const fetchProjectProcessDetails = createAsyncThunk("projects/fetchProjectProcessDetails", async (pid) => {
-//   const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/process/' + pid)
-//   return response.data.data
-// })
-
-
-// export const fetchProjectMonitorDetails = createAsyncThunk("projects/fetchProjectMonitorDetails", async (pid) => {
-//   const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/monitor/' + pid)
-//   return response.data.data
-// })
-
-// export const fetchProjectLocationDetails = createAsyncThunk("projects/fetchProjectLocationDetails", async (pid) => {
-//   const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/locations/' + pid)
-//   return response.data.data
-// })
-
-// export const fetchProjectStatusDetails = createAsyncThunk("projects/fetchProjectStatusDetails", async (pid) => {
-//   const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/project/projectNode/' + pid)
-//   return response.data.data
-// })
 
 const pipelinesSlice = createSlice({
   name: 'pipelines',
@@ -71,18 +64,17 @@ const pipelinesSlice = createSlice({
     curProAlertInfo: {},
     statusForProAlertInfoRequest: 'idle',
 
+    curProBuildInfo: {},
+    statusForProBuildInfoRequest: 'idle',
+
+    curProHealthInfo: {},
+    statusForProHealthInfoRequest: 'idle',
+
+    curProBurndownInfo: {},
+    statusForProBurndownInfoRequest: 'idle',
 
 
-    // curProAlertDetail: {},
-    // statusForProAlertRequest: 'idle',
-    // curProProcessDetail: {},
-    // statusForProProcessRequest: 'idle',
-    // curProMonitorDetail: {},
-    // statusForProMonitorRequest: 'idle',
-    // curProLocationDetail: {},
-    // statusForProLocationRequest: 'idle',
-    // curProStatusDetail: {},
-    // statusForProStatusRequest: 'idle',
+
   },
   reducers: {
     updateProId: (state, action) => {
@@ -158,6 +150,45 @@ const pipelinesSlice = createSlice({
       state.error = action.payload
     },
 
+    [fetchProjectBuildInfo.pending]: (state, action) => {
+      state.statusForProBuildInfoRequest = 'loading'
+    },
+    [fetchProjectBuildInfo.fulfilled]: (state, action) => {
+      state.statusForProBuildInfoRequest = 'succeeded'
+      state.curProBuildInfo = action.payload
+    },
+    [fetchProjectBuildInfo.rejected]: (state, action) => {
+      state.statusForProBuildInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+
+    [fetchProjectHealthInfo.pending]: (state, action) => {
+      state.statusForProHealthInfoRequest = 'loading'
+    },
+    [fetchProjectHealthInfo.fulfilled]: (state, action) => {
+      state.statusForProHealthInfoRequest = 'succeeded'
+      state.curProHealthInfo = action.payload
+    },
+    [fetchProjectHealthInfo.rejected]: (state, action) => {
+      state.statusForProHealthInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+
+    [fetchProjectBurndownInfo.pending]: (state, action) => {
+      state.statusForProBurndownInfoRequest = 'loading'
+    },
+    [fetchProjectBurndownInfo.fulfilled]: (state, action) => {
+      state.statusForProBurndownInfoRequest = 'succeeded'
+      state.curProBurndownInfo = action.payload
+    },
+    [fetchProjectBurndownInfo.rejected]: (state, action) => {
+      state.statusForProBurndownInfoRequest = 'failed'
+      state.error = action.payload
+    },
+
+
   },
 })
 
@@ -170,5 +201,8 @@ export const selectProjectStatus = state => state.pipelines.curProStatus
 export const selectProjectSystemInfo = state => state.pipelines.curProSystemInfo
 export const selectProjectTaskInfo = state => state.pipelines.curProTaskInfo
 export const selectProjectAlertInfo = state => state.pipelines.curProAlertInfo
+export const selectProjectBuildInfo = state => state.pipelines.curProBuildInfo
+export const selectProjectHealthInfo = state => state.pipelines.curProHealthInfo
+export const selectProjectBurndownInfo = state => state.pipelines.curProBurndownInfo
 
 export const selectCurProId = state => state.pipelines.currentProId
