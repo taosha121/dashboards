@@ -1,59 +1,62 @@
 import { createSlice, createAction, createAsyncThunk } from '@reduxjs/toolkit'
 const axios = require('axios');
 
+// const serverBaseUrl = "http://123.60.22.227:9999"
+const serverBaseUrl = "http://192.168.77.107:9999"
+
 export const fetchProjects = createAsyncThunk('pipeline/fetchProjects', async () => {
-    const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/projects')
+    const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/projects')
     return response.data.data
 })
 
 export const fetchProjectStatus = createAsyncThunk("projects/fetchProjectStatus", async (pid) => {
-    const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/dashboard/' + pid)
+    const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/dashboard/' + pid)
     return response.data.data
 })
 
 export const fetchProjectSystemInfo = createAsyncThunk("projects/fetchProjectSystemInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/sys/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/sys/' + pid)
   return response.data.data
 })
 
 export const fetchProjectTaskInfo = createAsyncThunk("projects/fetchProjectTaskInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/taskInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/taskInfo/' + pid)
   return response.data.data
 })
 
 
 export const fetchProjectAlertInfo = createAsyncThunk("projects/fetchProjectAlertInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/warning/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/warning/' + pid)
   return response.data.data
 })
 
 export const fetchProjectBuildInfo = createAsyncThunk("projects/fetchProjectBuildInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/buildInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/buildInfo/' + pid)
   return response.data.data
 })
 
 export const fetchProjectHealthInfo = createAsyncThunk("projects/fetchProjectHealthInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/codeHealth/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/codeHealth/' + pid)
   return response.data.data
 })
 
 export const fetchProjectBurndownInfo = createAsyncThunk("projects/fetchProjectBurndownInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/burnout/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/burnout/' + pid)
   return response.data.data
 })
 
 export const fetchProjectCommitInfo = createAsyncThunk("projects/fetchProjectCommitInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/codeCommitInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/codeCommitInfo/' + pid)
   return response.data.data
 })
 
 export const fetchProjectBugInfo = createAsyncThunk("projects/fetchProjectBugInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/defects/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/defects/' + pid)
   return response.data.data
 })
 
 export const fetchProjectBasicInfo = createAsyncThunk("projects/fetchProjectBasicInfo", async (pid) => {
-  const response = await axios.get('http://192.168.77.107:9999/devops-plantform-data/pipeline/baseInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/pipeline/baseInfo/' + pid)
   return response.data.data
 })
 

@@ -101,7 +101,7 @@ to {
   margin: 0 15px;
   max-width: 10vw;
   padding: 0 0 10px;
-  box-shadow: 0 0 6px 5px rgba(28,84,148,255);
+  box-shadow: 0 0 6px 5px #1c5494;
 }
 
 .project-card-item > div {

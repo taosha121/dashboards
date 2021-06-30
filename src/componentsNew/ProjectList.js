@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateProId, fetchProjects, fetchProjectAlertInfo, fetchProjectSystemInfo, fetchProjectTaskInfo, fetchProjectStatus, selectAllProjects, selectCurProId } from '../features/pipelinesSlice';
+import { updateProId, fetchProjects, fetchProjectAlertInfo, fetchProjectSystemInfo, fetchProjectTaskInfo, fetchProjectStatus, selectAllProjects, selectCurProId, fetchProjectBuildInfo, fetchProjectHealthInfo, fetchProjectBurndownInfo, fetchProjectCommitInfo, fetchProjectBugInfo, fetchProjectBasicInfo } from '../features/pipelinesSlice';
 import { FaSpinner } from 'react-icons/fa';
 import { MdPlayArrow } from 'react-icons/md';
 
 
 const ProjectList = () => {
     
-    
-    // const updateCurProId = pid => {
-    //     return {
-    //         type: 'pipelines/pidUpdated',
-    //         payload: pid
-    //     }
-    // }
     const dispatch = useDispatch()
     const projectDetails = useSelector(selectAllProjects)
     const proId = useSelector(selectCurProId)
@@ -21,24 +14,23 @@ const ProjectList = () => {
     const projectDetailsStatus = useSelector(state => state.pipelines.status)
     useEffect(() => {
         if(projectDetailsStatus === 'idle') {
-            dispatch(fetchProjects(1))
+            dispatch(fetchProjects())
             
 
             let pid = 2;
             setInterval(() => {
-                // console.log("=============now the pid is===============" + pid);
-                    dispatch(updateProId(pid))
-            //     // dispatch(fetchProjectAlertInfo(1))
-            //     // dispatch(fetchProjectSystemInfo(1))
-            //     // dispatch(fetchProjectTaskInfo(1))
-            //     // dispatch(fetchProjectStatus(1))
-            //     // debugger
-            //     // dispatch(updateProId(pid))
-            //     // dispatch(fetchProjectProcessDetails(pid))
-            //     // dispatch(fetchProjectMonitorDetails(pid))
-            //     // dispatch(fetchProjectStatusDetails(pid))
-            //     // dispatch(fetchProjectLocationDetails(pid))
-                pid++;
+                dispatch(updateProId(pid))
+                dispatch(fetchProjectAlertInfo(pid))
+                dispatch(fetchProjectSystemInfo(pid))
+                dispatch(fetchProjectTaskInfo(pid))
+                dispatch(fetchProjectStatus(pid))
+                dispatch(fetchProjectBuildInfo(pid))
+                dispatch(fetchProjectHealthInfo(pid))
+                dispatch(fetchProjectBurndownInfo(pid))
+                dispatch(fetchProjectCommitInfo(pid))
+                dispatch(fetchProjectBugInfo(pid))
+                dispatch(fetchProjectBasicInfo(pid))
+                pid = (pid === 18) ? 1 : pid + 1
             }, 5000);
 
         }

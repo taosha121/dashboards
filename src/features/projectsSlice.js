@@ -1,51 +1,54 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const axios = require('axios');
 
+// const serverBaseUrl = "http://123.60.22.227:9999"
+const serverBaseUrl = "http://192.168.77.107:9999"
+
 export const fetchProjects = createAsyncThunk('projects/fetchProjects', async () => {
-    const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/projects')
+    const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/projects')
     return response.data.data
 })
 
 export const fetchProjectIndustryDetails = createAsyncThunk("projects/fetchProjectIndustryDetails", async (pid) => {
-    const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/industry/' + pid)
+    const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/industry/' + pid)
     return response.data.data
 })
 
 export const fetchProjectCategoryDetails = createAsyncThunk("projects/fetchProjectCategoryDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/categoryInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/categoryInfo/' + pid)
   return response.data.data
 })
 
 export const fetchProjectQualityDetails = createAsyncThunk("projects/fetchProjectQualityDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/qualityInfo/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/qualityInfo/' + pid)
   return response.data.data
 })
 
 
 export const fetchProjectAlertDetails = createAsyncThunk("projects/fetchProjectAlertDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/events/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/events/' + pid)
   return response.data.data
 })
 
 
 export const fetchProjectProcessDetails = createAsyncThunk("projects/fetchProjectProcessDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/process/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/process/' + pid)
   return response.data.data
 })
 
 
 export const fetchProjectMonitorDetails = createAsyncThunk("projects/fetchProjectMonitorDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/monitor/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/monitor/' + pid)
   return response.data.data
 })
 
 export const fetchProjectLocationDetails = createAsyncThunk("projects/fetchProjectLocationDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/locations/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/locations/' + pid)
   return response.data.data
 })
 
 export const fetchProjectStatusDetails = createAsyncThunk("projects/fetchProjectStatusDetails", async (pid) => {
-  const response = await axios.get('http://123.60.22.227:9999/devops-plantform-data/project/projectNode/' + pid)
+  const response = await axios.get(serverBaseUrl + '/devops-plantform-data/project/projectNode/' + pid)
   return response.data.data
 })
 
@@ -55,6 +58,7 @@ const projectsSlice = createSlice({
     status: 'idle',
     error: null,
     projectList: [],
+    currentProId: 1,
 
     curProIndustryDetail: {},
     statusForProIndustryRequest: 'idle',
@@ -79,6 +83,9 @@ const projectsSlice = createSlice({
     statusForProStatusRequest: 'idle',
   },
   reducers: {
+    updateProId: (state, action) => {
+      state.currentProId = action.payload
+    },
   },
   extraReducers: {
     [fetchProjects.pending]: (state, action) => {
@@ -206,6 +213,7 @@ const projectsSlice = createSlice({
 
 
 export default projectsSlice.reducer
+export const { updateProId } = projectsSlice.actions
 
 export const selectAllProjects = state => state.projects.projectList
 
@@ -222,3 +230,5 @@ export const selectProjectMonitor = state => state.projects.curProMonitorDetail
 export const selectProjectLocation = state => state.projects.curProLocationDetail
 
 export const selectProjectStatus = state => state.projects.curProStatusDetail
+
+export const selectCurProId = state => state.projects.currentProId
